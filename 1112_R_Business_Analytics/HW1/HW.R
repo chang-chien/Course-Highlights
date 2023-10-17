@@ -1,0 +1,134 @@
+#Q0 匯入要用到的資料和套件 並確認檔案內容
+# install.packages("tidyverse")
+library(tidyverse)
+
+setwd("C:\\Users\\ASUS\\Desktop\\五234 R\\HW1") #放你的路徑
+salesData <- read.csv("salesdata.csv")
+clientList <- read.csv("client_list.csv")
+productList <- read.csv("product_list.csv")
+
+salesData
+clientList
+productList
+
+#Q1 將product_list裡兩個變數分開
+productList <- productList %>% 
+  separate("Item", into=c("Product", "Item"), sep = "_") #should not be character 
+
+productList$Product = as.integer(productList$Product)
+
+#Q2 將3個報表合併為full.table
+clientList <- clientList %>% 
+  select(Client, Age, Membership, Gender) 
+
+full.table <- salesData %>% 
+  left_join(clientList, by = "Client") %>% 
+  left_join(productList, by = "Product")
+
+#Q3 新增一個變數「總消費」為spend = UnitPrice*Quantity
+full.table <- full.table %>% 
+  mutate( spend = UnitPrice * Quantity )
+
+full.table
+
+#Q4 在full.table將會員等級分組
+#其中gold和diamond的顧客為一組，其他等級的為一組
+#以敘述統計針對兩組客戶進行比較介紹
+#（例如平均年紀、性別、國家、消費情況差異等）。
+full.table <- full.table %>% 
+  mutate( class = (Membership == "gold" | Membership == "diamond") )
+
+## 國家&會員等級
+full.table %>% 
+  count( Region, class ) %>%
+  ggplot( mapping = aes(x = Region, y = class) ) +
+  geom_tile( mapping = aes(fill = n) )
+
+## 性別&會員等級
+full.table %>% 
+  count( Gender, class ) %>%
+  ggplot( mapping = aes(x = Gender, y = class) ) +
+  geom_tile( mapping = aes(fill = n) )
+
+## 品項&會員等級
+full.table %>% 
+  count( Item, class ) %>%
+  ggplot( mapping = aes(x = Item, y = class) ) +
+  geom_tile( mapping = aes(fill = n) )
+
+## 敘述統計 包含年紀和消費狀況
+table1a <- full.table %>%
+  subset(class) %>%
+  select(UnitPrice, Quantity, Age, spend)
+  
+table1b <- full.table %>%
+  subset(!class) %>%
+  select(UnitPrice, Quantity, Age, spend)
+
+summary(table1a)
+summary(table1b)
+
+## 總消費&會員等級
+table1a %>% 
+  qplot( spend, geom="histogram", data=., bins=10 ) 
+
+table1b %>% 
+  qplot( spend, geom="histogram", data=., bins=10 ) 
+
+#Q5 在full.table針對男性客戶進行分析
+#（例如平均年紀、國家、消費情況等）
+#並對他們在不同產品的「總消費」畫圖分析。
+table2 <- full.table %>%
+  filter(Gender == 'male')
+
+table2$Membership <- factor(table2$Membership, levels = c("diamond", "gold", "silver", "basic"))
+
+## 平均年紀
+table2 %>%
+  group_by(Item) %>%
+  summarize(
+    age_mean = mean(Age),
+    age_max = max(Age),
+    age_min = min(Age))
+
+## 購買項目&國家
+table2 %>% 
+  count( Region, Item ) %>%  
+  ggplot( mapping = aes(x = Region, y = Item) ) +
+  geom_tile( mapping = aes(fill = n) )
+
+## 購買項目&店家
+table2 %>% 
+  count( Store, Item ) %>%  
+  ggplot( mapping = aes(x = Store, y = Item) ) +
+  geom_tile( mapping = aes(fill = n) )
+
+## 購買項目&會員等級
+table2 %>% 
+  count( Membership, Item ) %>%  
+  ggplot( mapping = aes(x = Membership, y = Item) ) +
+  geom_tile( mapping = aes(fill = n) )
+
+## 依購買項目分類 年紀&總消費分布
+table2 %>%
+  ggplot(aes(x = spend, y = Age)) + 
+  geom_point() +
+  facet_wrap(~Item)
+
+## 依購買項目分類 統計數量、總額、平均
+table2 %>%
+  group_by(Item) %>%
+  summarize(
+    spend_count = n(),
+    spend_total = sum(spend),
+    spend_mean = mean(spend),
+    spend_max = max(spend),
+    spend_min = min(spend))
+
+## 依購買項目分類 總消費長方圖
+table2 %>% 
+  qplot( spend, geom="histogram", data=., bins=10 ) +
+  facet_wrap(~Item)
+
+
+
