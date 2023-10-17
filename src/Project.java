@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Project {
 	private String name;
 	private JointAccount jointAccount;
-//	TODO: ¬O¤£¬OallItems allUsers¤ñ¸û¦n
+//	TODO: æ˜¯ä¸æ˜¯allItems allUsersæ¯”è¼ƒå¥½
 	private ArrayList<Item> allItem = new ArrayList<Item>();
 	private ArrayList<UserAccount> allUser = new ArrayList<UserAccount>();
 
@@ -18,19 +18,19 @@ public class Project {
 		}
 		String payerList[] = payer.split(" ");
 		for (String user: payerList) {
-//			TODO: ¦pªG¿é¤J¤£¦s¦bªºuser·|¦Û°Ê·s¼W¡B±Æ°£NA
+//			TODO: å¦‚æœè¼¸å…¥ä¸å­˜åœ¨çš„useræœƒè‡ªå‹•æ–°å¢ã€æ’é™¤NA
 			if (!getAllUser().contains(user) && !user.equals("NA")) {
 				this.addUser(user);
 			}
 		}
 		Item item = new Item(itemName, totalAmount, payee, payerList);
 		allItem.add(item);
-//		TODO: §Ú¥[¤F½u½u
+//		TODO: æˆ‘åŠ äº†ç·šç·š
 		System.out.println("--- Item " + itemName + " is added to " + this.name + "! ---");
 		System.out.println();
 	}
 
-//	TODO: §ï¦¨void
+//	TODO: æ”¹æˆvoid
 	public void getAllItem() {
 		System.out.printf("%-8s %-20s %-10s %-15s %-50s", "Index", "Item", "Amount", "Who_paid", "participants");
 		System.out.println();
@@ -46,7 +46,7 @@ public class Project {
 		allUser.add(user);
 	}
 
-//	TODO:¡@§Ú·s¼Wªº
+//	TODO:ã€€æˆ‘æ–°å¢çš„
 	public String getAllUser() {
 		String nameList = "";
 		for (UserAccount user : allUser) {
@@ -55,25 +55,25 @@ public class Project {
 		return nameList;
 	}
 
-//	TODO: §Ú·s¼Wªº
+//	TODO: æˆ‘æ–°å¢çš„
 	public void revise(int index, int function, String newContet) {
 		Item revise = allItem.get(index);
 		switch (function) {
 		case 1:
-//			1-­×§ï item name¡F
+//			1-ä¿®æ”¹ item nameï¼›
 			revise.setName(newContet);
 			break;
 		case 2:
-//			2-­×§ïª÷ÃB¡F
+//			2-ä¿®æ”¹é‡‘é¡ï¼›
 			double d = Double.parseDouble(newContet);
 			revise.setTotalAmount(d);
 			break;
 		case 3:
-//			3-­×§ï¦¬´Ú¤H¡F
+//			3-ä¿®æ”¹æ”¶æ¬¾äººï¼›
 			revise.setPayee(newContet);
 			break;
 		case 4:
-//			4-­×§ï¥I´Ú¤H¡F
+//			4-ä¿®æ”¹ä»˜æ¬¾äººï¼›
 			String payer[] = newContet.split(" ");
 			revise.setPayer(payer);
 			break;
@@ -82,9 +82,9 @@ public class Project {
 		System.out.println();
 	}
 
-//	TODO: §Ú·s¼Wªº
+//	TODO: æˆ‘æ–°å¢çš„
 	public void revise(int index, int function) {
-//		5-§R°£ item
+//		5-åˆªé™¤ item
 		Item revise = allItem.get(index);
 		allItem.remove(revise);
 		System.out.println("Item " + revise.getName() + " is deleted!");
@@ -121,3 +121,4 @@ public class Project {
 		System.out.print("Joint Account balance: " + jointAccount.getTotalAmount());
 	}
 }
+

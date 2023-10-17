@@ -23,7 +23,7 @@ public class Tester {
 							+ "Enter action number: ");
 			function = Scanner.nextInt();
 			Scanner.nextLine();
-//			TODO: §Ú¥[¤F½u½u
+//			TODO: æˆ‘åŠ äº†ç·šç·š
 			System.out.println("-".repeat(40));
 			switch (function) {
 			case 1:
@@ -39,7 +39,7 @@ public class Tester {
 					payee = "JointAccount";
 					payer = "NA";
 				} else {
-					System.out.print("Participants of this activity (if every one, enter ¡§all¡¨): ");
+					System.out.print("Participants of this activity (if every one, enter â€œallâ€): ");
 					payer = Scanner.nextLine();
 				}
 				project.addItem(itemName, amount, payee, payer);
@@ -94,9 +94,3 @@ public class Tester {
 		}
 		Scanner.close();
 
-//		ÁÙ¥i¥H§ï¶iªº¦a¤è¡G
-//		¨Ò¥~³B²z
-//		·PÄ±¥i¥H³]­p­ÓÅªÀÉ¶Ü
-//		©Î¬O§âµ²ªG¥á¨ìtxt
-	}
-}

@@ -1,4 +1,3 @@
-
 public class JointAccount extends Account {
 	
 	public JointAccount (double totalAmount) {
@@ -13,3 +12,4 @@ public class JointAccount extends Account {
 		}
 	}
 }
+

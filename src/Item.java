@@ -1,4 +1,3 @@
-
 public class Item {
 	private String name;
 	private double totalAmount;
@@ -24,7 +23,7 @@ public class Item {
 		return payee;
 	}
 	
-//	TODO: ���ƫ��A�令String
+//	TODO: §â¸ê®Æ«¬ºA§ï¦¨String
 	public String getpayers() {
 		String payerList = "";
 		for (int i = 0; i < payers.length; i++) {
@@ -53,3 +52,4 @@ public class Item {
 		this.payers = payer;
 	}
 }
+

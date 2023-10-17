@@ -1,7 +1,6 @@
-
 public class UserAccount extends Account{
 	private String name;
-//	¤w½ÆÀËÀ³­t
+//	Â¤wÂ½Ã†Ã€Ã‹Ã€Â³Â­t
 	public UserAccount(String name, double totalAmount) {
 		super(totalAmount);
 		this.name = name;

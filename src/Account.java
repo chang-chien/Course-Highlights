@@ -1,4 +1,3 @@
-
 public class Account {
 	protected double totalAmount = 0;
 
@@ -22,3 +21,4 @@ public class Account {
 		this.totalAmount = this.totalAmount - amount;
 	}
 }
+
