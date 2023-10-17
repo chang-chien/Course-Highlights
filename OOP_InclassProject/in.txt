@@ -1,0 +1,34 @@
+2 days 1 night in Taipei
+Lily Robin Ted Barney
+800
+1
+day1 breakfast
+600
+Robin
+Lily Robin Ted
+1
+taxi
+400
+*
+1
+day1 lunch
+1000
+Ted
+all
+1
+day1 dinner
+1200
+Barney
+all
+3
+2
+2
+1500
+1
+day2 lunch
+600
+Ted
+Lily Robin Ted
+2
+5
+0
